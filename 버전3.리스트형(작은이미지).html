@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini.kker - 백패킹 장비</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-green: #4A7856;
+            --dark-green: #3A5F45;
+            --accent-red: #D84339;
+            --accent-brown: #8B5A3C;
+            --text-black: #1a1a1a;
+            --text-gray: #666;
+            --bg-light: #f8f9f8;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', 'Poppins', sans-serif;
+            color: var(--text-black);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: var(--white);
+            padding: 1.5rem 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .logo {
+            height: 45px;
+            width: auto;
+        }
+        
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-style: italic;
+            font-weight: 300;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            color: var(--white);
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        /* Category Filter */
+        .category-filter {
+            max-width: 1200px;
+            margin: 1rem auto 0.8rem;
+            padding: 0 1rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .category-filter::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            padding-bottom: 0.3rem;
+            min-width: max-content;
+        }
+        
+        .filter-btn {
+            padding: 0.4rem 1rem;
+            border: 2px solid var(--primary-green);
+            background: var(--white);
+            color: var(--primary-green);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-green);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 120, 86, 0.3);
+        }
+        
+        /* Gear Grid */
+        .gear-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.5rem 1rem 1rem;
+        }
+        
+        .gear-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        
+        /* Gear Card */
+        .gear-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border: 1px solid #e8e8e8;
+            padding: 1rem;
+            gap: 1rem;
+        }
+        
+        .gear-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .gear-image {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #e8e8e8;
+        }
+        
+        .gear-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gear-image-placeholder {
+            color: var(--text-gray);
+            font-size: 2rem;
+        }
+        
+        .gear-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+        
+        .gear-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.3rem;
+            flex: 0 0 auto;
+            min-width: 200px;
+        }
+        
+        .gear-title-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        
+        .gear-category {
+            display: inline-block;
+            padding: 0.25rem 0.65rem;
+            background: var(--primary-green);
+            color: var(--white);
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            letter-spacing: 0.3px;
+            width: fit-content;
+        }
+        
+        .gear-brand {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+        
+        .gear-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-black);
+            line-height: 1.3;
+        }
+        
+        .gear-weight {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--accent-brown);
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            flex: 0 0 auto;
+        }
+        
+        .gear-weight::before {
+            content: "⚖️";
+            font-size: 0.9rem;
+        }
+        
+        .gear-comment {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            line-height: 1.4;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .buy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            padding: 0.6rem 1.2rem;
+            background: var(--accent-red);
+            color: var(--white);
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex: 0 0 auto;
+        }
+        
+        .buy-btn:hover {
+            background: #c23930;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(216, 67, 57, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--text-black);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem 1rem;
+            margin-top: 2rem;
+        }
+        
+        footer p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-gray);
+        }
+        
+        .loading-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.2rem;
+            }
+            
+            .brand-name {
+                font-size: 1.6rem;
+            }
+            
+            .gear-image {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .gear-image-placeholder {
+                font-size: 1.5rem;
+            }
+            
+            .gear-card {
+                flex-direction: row;
+                align-items: flex-start;
+                padding: 0.8rem;
+            }
+            
+            .gear-content {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+            
+            .gear-header {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .gear-comment {
+                -webkit-line-clamp: 3;
+            }
+            
+            .buy-btn {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .tagline {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <svg class="logo" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Mountain M -->
+                    <polygon points="10,50 30,15 40,30 50,10 65,50" fill="#4A7856"/>
+                    <!-- Circle (red dot) -->
+                    <circle cx="75" cy="15" r="8" fill="#D84339"/>
+                    <!-- Vertical bar (brown) -->
+                    <rect x="70" y="28" width="10" height="22" rx="5" fill="#8B5A3C"/>
+                </svg>
+                <span class="brand-name">Mini.kker</span>
+            </div>
+            <p class="tagline">Small Steps, Giant Trails</p>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>🏔️ 나의 백패킹 장비</h1>
+    </section>
+
+    <!-- Category Filter -->
+    <div class="category-filter">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">전체</button>
+            <button class="filter-btn" data-category="텐트">텐트</button>
+            <button class="filter-btn" data-category="배낭">배낭</button>
+            <button class="filter-btn" data-category="침낭">침낭</button>
+            <button class="filter-btn" data-category="취사">취사</button>
+            <button class="filter-btn" data-category="의류">의류</button>
+            <button class="filter-btn" data-category="기타">기타</button>
+        </div>
+    </div>
+
+    <!-- Gear Grid -->
+    <div class="gear-container">
+        <div class="gear-grid" id="gearGrid">
+            <!-- Gear Card 1 -->
+            <div class="gear-card" data-category="텐트">
+                <div class="gear-image">
+                    <!-- 이미지 URL을 src에 넣으세요 -->
+                    <!-- <img src="이미지URL" alt="Tiger Wall UL2"> -->
+                    <span class="gear-image-placeholder">⛺</span>
+                </div>
+                <div class="gear-content">
+                    <div class="gear-title-section">
+                        <span class="gear-category">텐트</span>
+                        <p class="gear-brand">Big Agnes</p>
+                        <h3 class="gear-name">Tiger Wall UL2</h3>
+                    </div>
+                    <div class="gear-weight">1134g (40oz)</div>
+                    <p class="gear-comment">초경량 2인용 텐트. 넓은 내부 공간과 뛰어난 통풍성으로 3시즌 백패킹에 완벽합니다.</p>
+                    <a href="#" class="buy-btn">구매하기 →</a>
+                </div>
+            </div>
+
+            <!-- Gear Card 2 -->
+            <div class="gear-card" data-category="배낭">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🎒</span>
+                </div>
+                <div class="gear-content">
+                    <div class="gear-title-section">
+                        <span class="gear-category">배낭</span>
+                        <p class="gear-brand">Osprey</p>
+                        <h3 class="gear-name">Exos 58</h3>
+                    </div>
+                    <div class="gear-weight">1020g (36oz)</div>
+                    <p class="gear-comment">초경량이면서도 편안한 등판 시스템. 58L 용량으로 3-5일 종주에 적합합니다.</p>
+                    <a href="#" class="buy-btn">구매하기 →</a>
+                </div>
+            </div>
+
+            <!-- Gear Card 3 -->
+            <div class="gear-card" data-category="침낭">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🛏️</span>
+                </div>
+                <div class="gear-content">
+                    <div class="gear-title-section">
+                        <span class="gear-category">침낭</span>
+                        <p class="gear-brand">Western Mountaineering</p>
+                        <h3 class="gear-name">UltraLite 20°F</h3>
+                    </div>
+                    <div class="gear-weight">680g (24oz)</div>
+                    <p class="gear-comment">850 필파워 구스다운. 영하 7도까지 견딜 수 있는 초경량 침낭의 대명사입니다.</p>
+                    <a href="#" class="buy-btn">구매하기 →</a>
+                </div>
+            </div>
+
+            <!-- Gear Card 4 -->
+            <div class="gear-card" data-category="취사">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🔥</span>
+                </div>
+                <div class="gear-content">
+                    <div class="gear-title-section">
+                        <span class="gear-category">취사</span>
+                        <p class="gear-brand">MSR</p>
+                        <h3 class="gear-name">PocketRocket Deluxe</h3>
+                    </div>
+                    <div class="gear-weight">73g (2.6oz)</div>
+                    <p class="gear-comment">손바닥 안에 쏙 들어가는 초소형 버너. 풍방 기능으로 야외에서도 안정적인 화력을 제공합니다.</p>
+                    <a href="#" class="buy-btn">구매하기 →</a>
+                </div>
+            </div>
+
+            <!-- Gear Card 5 -->
+            <div class="gear-card" data-category="의류">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🧥</span>
+                </div>
+                <div class="gear-content">
+                    <div class="gear-title-section">
+                        <span class="gear-category">의류</span>
+                        <p class="gear-brand">Patagonia</p>
+                        <h3 class="gear-name">Houdini Air Jacket</h3>
+                    </div>
+                    <div class="gear-weight">85g (3oz)</div>
+                    <p class="gear-comment">통기성이 뛰어난 윈드셸. 주머니에 쏙 들어가는 크기로 레이어링에 필수입니다.</p>
+                    <a href="#" class="buy-btn">구매하기 →</a>
+                </div>
+            </div>
+
+            <!-- Gear Card 6 -->
+            <div class="gear-card" data-category="기타">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">💧</span>
+                </div>
+                <div class="gear-content">
+                    <div class="gear-title-section">
+                        <span class="gear-category">기타</span>
+                        <p class="gear-brand">Sawyer</p>
+                        <h3 class="gear-name">Squeeze Water Filter</h3>
+                    </div>
+                    <div class="gear-weight">85g (3oz)</div>
+                    <p class="gear-comment">10만 갤런 수명의 정수 필터. 파우치에 물을 담아 짜면 바로 정수되는 간편함이 최고입니다.</p>
+                    <a href="#" class="buy-btn">구매하기 →</a>
+                </div>
+            </div>
+
+            <!-- Gear Card 7 -->
+            <div class="gear-card" data-category="취사">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🍲</span>
+                </div>
+                <div class="gear-content">
+                    <div class="gear-title-section">
+                        <span class="gear-category">취사</span>
+                        <p class="gear-brand">Toaks</p>
+                        <h3 class="gear-name">Titanium 750ml Pot</h3>
+                    </div>
+                    <div class="gear-weight">95g (3.4oz)</div>
+                    <p class="gear-comment">티타늄 소재로 가볍고 튼튼한 취사 용기. 라면 하나 끓이기 딱 좋은 크기입니다.</p>
+                    <a href="#" class="buy-btn">구매하기 →</a>
+                </div>
+            </div>
+
+            <!-- Gear Card 8 -->
+            <div class="gear-card" data-category="기타">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🔦</span>
+                </div>
+                <div class="gear-content">
+                    <div class="gear-title-section">
+                        <span class="gear-category">기타</span>
+                        <p class="gear-brand">Black Diamond</p>
+                        <h3 class="gear-name">Spot 400 Headlamp</h3>
+                    </div>
+                    <div class="gear-weight">86g (3oz)</div>
+                    <p class="gear-comment">400루멘 밝기의 헤드랜턴. 방수 기능과 레드라이트 모드로 야간 산행에 필수입니다.</p>
+                    <a href="#" class="buy-btn">구매하기 →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Animation -->
+        <div class="loading">
+            <div class="loading-icon">
+                <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="10,50 30,15 40,30 50,10 65,50" fill="#4A7856"/>
+                    <circle cx="75" cy="15" r="8" fill="#D84339"/>
+                    <rect x="70" y="28" width="10" height="22" rx="5" fill="#8B5A3C"/>
+                </svg>
+            </div>
+            <p>장비를 불러오는 중...</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Mini.kker. Small Steps, Giant Trails.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">모든 제휴 링크는 Amazon Associates 프로그램을 통해 제공됩니다.</p>
+    </footer>
+
+    <script>
+        // Category Filter Functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const gearCards = document.querySelectorAll('.gear-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get selected category
+                const category = button.getAttribute('data-category');
+                
+                // Filter gear cards
+                gearCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Smooth scroll animation for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Initial card animation setup
+        gearCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            card.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
