@@ -172,7 +172,27 @@
         }
         
         .gear-image {
-            display: none;
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #e8e8e8;
+        }
+        
+        .gear-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gear-image-placeholder {
+            color: var(--text-gray);
+            font-size: 2rem;
         }
         
         .gear-content {
@@ -323,10 +343,19 @@
                 font-size: 1.6rem;
             }
             
+            .gear-image {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .gear-image-placeholder {
+                font-size: 1.5rem;
+            }
+            
             .gear-card {
-                flex-direction: column;
+                flex-direction: row;
                 align-items: flex-start;
-                padding: 1rem;
+                padding: 0.8rem;
             }
             
             .gear-content {
@@ -404,6 +433,11 @@
         <div class="gear-grid" id="gearGrid">
             <!-- Gear Card 1 -->
             <div class="gear-card" data-category="텐트">
+                <div class="gear-image">
+                    <!-- 이미지 URL을 src에 넣으세요 -->
+                    <!-- <img src="이미지URL" alt="Tiger Wall UL2"> -->
+                    <span class="gear-image-placeholder">⛺</span>
+                </div>
                 <div class="gear-content">
                     <div class="gear-title-section">
                         <span class="gear-category">텐트</span>
@@ -418,6 +452,9 @@
 
             <!-- Gear Card 2 -->
             <div class="gear-card" data-category="배낭">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🎒</span>
+                </div>
                 <div class="gear-content">
                     <div class="gear-title-section">
                         <span class="gear-category">배낭</span>
@@ -432,6 +469,9 @@
 
             <!-- Gear Card 3 -->
             <div class="gear-card" data-category="침낭">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🛏️</span>
+                </div>
                 <div class="gear-content">
                     <div class="gear-title-section">
                         <span class="gear-category">침낭</span>
@@ -446,6 +486,9 @@
 
             <!-- Gear Card 4 -->
             <div class="gear-card" data-category="취사">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🔥</span>
+                </div>
                 <div class="gear-content">
                     <div class="gear-title-section">
                         <span class="gear-category">취사</span>
@@ -460,6 +503,9 @@
 
             <!-- Gear Card 5 -->
             <div class="gear-card" data-category="의류">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🧥</span>
+                </div>
                 <div class="gear-content">
                     <div class="gear-title-section">
                         <span class="gear-category">의류</span>
@@ -474,6 +520,9 @@
 
             <!-- Gear Card 6 -->
             <div class="gear-card" data-category="기타">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">💧</span>
+                </div>
                 <div class="gear-content">
                     <div class="gear-title-section">
                         <span class="gear-category">기타</span>
@@ -488,6 +537,9 @@
 
             <!-- Gear Card 7 -->
             <div class="gear-card" data-category="취사">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🍲</span>
+                </div>
                 <div class="gear-content">
                     <div class="gear-title-section">
                         <span class="gear-category">취사</span>
@@ -502,6 +554,9 @@
 
             <!-- Gear Card 8 -->
             <div class="gear-card" data-category="기타">
+                <div class="gear-image">
+                    <span class="gear-image-placeholder">🔦</span>
+                </div>
                 <div class="gear-content">
                     <div class="gear-title-section">
                         <span class="gear-category">기타</span>
