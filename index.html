@@ -130,7 +130,7 @@
                 <div class="gear-card" data-category="${row[0]}" style="transition-delay: ${index * 0.1}s">
                     <div class="gear-image">
                         ${row[6] ? `
-                            <img src="https://drive.google.com/uc?export=view&id=${row[6]}" 
+                            <img src="https://drive.google.com/thumbnail?id=${row[6]}&sz=w800"
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="gear-image-placeholder" style="display:none;">⛺</div>
                         ` : '<div class="gear-image-placeholder">⛺</div>'}
