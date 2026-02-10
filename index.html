@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -165,7 +164,7 @@
         /* 이미지 영역 */
         .gear-image { 
             width: 100%;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 4 / 3;
             background: var(--bg-light); 
             display: flex; 
             align-items: center; 
@@ -178,7 +177,8 @@
         .gear-image img { 
             width: 100%; 
             height: 100%; 
-            object-fit: cover; 
+            object-fit: contain;
+            padding: 0.5rem;
         }
         
         .gear-image-placeholder { 
@@ -196,16 +196,7 @@
         }
         
         .gear-category { 
-            display: inline-block; 
-            padding: 0.2rem 0.5rem; 
-            background: var(--primary-green); 
-            color: var(--white); 
-            border-radius: 20px; 
-            font-size: 0.65rem; 
-            font-weight: 600; 
-            letter-spacing: 0.3px; 
-            width: fit-content;
-            margin-bottom: 0.2rem;
+            display: none;
         }
         
         .gear-brand { 
@@ -229,12 +220,12 @@
         .gear-comment {
             font-size: 0.7rem;
             color: var(--text-gray);
-            line-height: 1.3;
+            line-height: 1.4;
             display: -webkit-box;
-            -webkit-line-clamp: 1;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            min-height: 1em;
+            min-height: 2em;
         }
         
         .gear-weight { 
@@ -325,8 +316,7 @@
 
     <div class="category-filter">
         <div class="filter-buttons" id="filterGroup">
-            <button class="filter-btn active" data-category="all">전체</button>
-            <button class="filter-btn" data-category="Big3">Big3</button>
+            <button class="filter-btn active" data-category="Big3">Big3</button>
             <button class="filter-btn" data-category="취사">취사</button>
             <button class="filter-btn" data-category="착용">착용</button> 
             <button class="filter-btn" data-category="의류">의류</button>
@@ -387,7 +377,6 @@
                         ` : '<div class="gear-image-placeholder">⛺</div>'}
                     </div>
                     <div class="gear-content">
-                        <span class="gear-category">${row[0]}</span>
                         <p class="gear-brand">${row[1]}</p>
                         <h3 class="gear-name">${row[2]}</h3>
                         <p class="gear-comment">${row[4]}</p>
@@ -400,8 +389,13 @@
             // 카드 나타나는 애니메이션 실행
             setTimeout(() => {
                 document.querySelectorAll('.gear-card').forEach(card => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
+                    // Big3만 먼저 표시
+                    if (card.dataset.category === 'Big3') {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    } else {
+                        card.style.display = 'none';
+                    }
                 });
             }, 100);
 
@@ -420,7 +414,7 @@
                     btn.classList.add('active');
 
                     cards.forEach(card => {
-                        if (category === 'all' || card.dataset.category === category) {
+                        if (card.dataset.category === category) {
                             card.style.display = 'flex';
                             setTimeout(() => { 
                                 card.style.opacity = '1'; 
