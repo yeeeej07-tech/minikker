@@ -35,7 +35,14 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
             position: sticky; 
             top: 0; 
-            z-index: 100; 
+            z-index: 100;
+            color-scheme: light;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            header {
+                background: var(--white) !important;
+            }
         }
         
         .header-content { 
@@ -53,13 +60,13 @@
             gap: 0.3rem; 
         }
         
-        .logo { 
-            height: 40px; 
+        .logo-image { 
+            height: 50px; 
             width: auto; 
         }
         
         .brand-name { 
-            font-size: 1.6rem; 
+            font-size: 1.8rem; 
             font-weight: 700; 
             color: var(--primary-green); 
             font-family: 'Poppins', sans-serif; 
@@ -76,8 +83,9 @@
         .category-filter { 
             max-width: 1200px; 
             margin: 1rem auto 0.8rem; 
-            padding: 0 0.8rem; 
+            padding: 0.3rem 0.8rem; 
             overflow-x: auto; 
+            overflow-y: visible;
             -webkit-overflow-scrolling: touch; 
         }
         
@@ -88,7 +96,7 @@
         .filter-buttons { 
             display: flex; 
             gap: 0.5rem; 
-            padding-bottom: 0.3rem; 
+            padding: 0.3rem 0; 
             min-width: max-content; 
         }
         
@@ -304,12 +312,7 @@
     <header>
         <div class="header-content">
             <div class="logo-container">
-                <svg class="logo" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
-                    <polygon points="10,50 30,15 40,30 50,10 65,50" fill="#4A7856"/>
-                    <circle cx="75" cy="15" r="8" fill="#D84339"/>
-                    <rect x="70" y="28" width="10" height="22" rx="5" fill="#8B5A3C"/>
-                </svg>
-                <span class="brand-name">Mini.kker</span>
+                <img src="https://drive.google.com/thumbnail?id=1shoOEkLkgkMMr6ofaF4jMdsN52p1rIMB&sz=w400" alt="minikker" class="logo-image">
             </div>
             <p class="tagline">Small Steps, Giant Trails</p>
         </div>
@@ -382,7 +385,7 @@
                         <h3 class="gear-name">${row[2]}</h3>
                         <p class="gear-comment">${row[4]}</p>
                         <div class="gear-weight">${row[3]}</div>
-                        <a href="${row[5]}" target="_blank" class="buy-btn">🛒 구매하기</a>
+                        <a href="${row[5]}" target="_blank" class="buy-btn">구매하기</a>
                     </div>
                 </div>
             `).join('');
